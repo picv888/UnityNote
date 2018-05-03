@@ -1,0 +1,19 @@
+向量的叉乘:
+a(a1,a2,a3) x b(b1,b2,b3) = c(c1,c2,c3)
+c1 = a2b3-a3b2
+c2 = a3b1-a1b3
+c3 = a1b2-a2b1
+
+几何意义: a、b叉乘得到同时垂直于a、b向量的向量c
+
+向量叉乘API: Vector3.Cross()
+
+//看向一个向量: Quaternion.LookRotation()
+Vector3 dir = girl.position - tranform.position;
+tranform.rotation = Quaternion.LookRotation(dir);
+
+////四元数 线性插值
+////Quaternion API
+////指定路径 匀速前进 匀速看向目标
+////fixedUpdate 和  Update
+////NGUI 的spirit  button  做一个点击按钮后减血量

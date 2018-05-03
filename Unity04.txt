@@ -1,0 +1,64 @@
+使 gameObject 朝向指定的位置
+gameObject.transform.LookAt(Transform transform);
+gameObject.transform.LookAt(Vector3 vector3);
+
+使 gameObject 围绕 经过某point的某坐标轴axis 旋转
+gameObject.transform.RotateAround(Vector3 point, Vector3 axis, float angle);
+
+在Inspector中给脚本的public成员变量赋值，运行游戏后，游戏引擎会在实例化脚本组件时根据Inspector给脚本对象的成员变量赋值。
+图片类型 public Texture image;
+
+监听鼠标和键盘的按下事件
+方法1:
+bool : Input.GetKey(keyCode keyCode)
+bool : Input.GetMouseButtonDown(int index)//0 左键 1右键 2中建
+方法2:  轴值映射
+输入管理InputManager: 菜单Edit - Project Setting - Input 
+代码里获取轴值:
+float h;
+float v;
+float mouse_h;
+float mouse_v;
+GameObject carCamera;
+void Start() {
+    Debug.Log(this.transform.position);
+    carCamera = GameObject.Find("Main Camera");
+}
+
+void Update() {
+    //根据InputManager中的Name获取轴值
+    h = Input.GetAxis("Horizontal"); //范围 -1 ~ 1
+    v = Input.GetAxis("Vertical"); //范围-1 ~ 1
+    mouse_h = Input.GetAxis("Mouse X");
+    mouse_v = Input.GetAxis("Mouse Y");
+    //WASD和方向键控制平移
+    transform.Translate(Vector3.right * 5.0f * h * Time.deltaTime);
+    transform.Translate(Vector3.forward * 5.0f * v * Time.deltaTime);
+    //鼠标X轴移动控制人物转动
+    transform.Rotate(Vector3.up * 45.0f * mouse_h * Time.deltaTime, Space.World);
+    //鼠标上下移动控制镜头上下转动
+    carCamera.transform.Rotate(Vector3.left * 45.0f * mouse_v * Time.deltaTime, Space.Self);
+}
+
+//生命周期函数 OnGUI() 
+////调用时机待补充
+//Unity中最老版的UI系统, 一般只用于调试时在游戏画面输出信息
+void OnGUI() {
+    GUILayout.Label("Label Test");
+    GUILayout.Button("Button");
+    GUILayout.Box(image);
+}
+
+菜单中设置物理帧时长:
+菜单Edit - Project Setting - Time - Fixed TimeStep
+
+修改摄像机在Scene中的图标的大小:
+Scene右上角 - Gizmes - 滑动 3D Icons 
+
+////Time时间类
+Time.deltaTime: 代表每一帧所消耗的时间,平移的过程中让速度和此量相乘,就从每帧多少米变成了每秒多少米了
+Time.time 代表着从游戏一开始运行到当前时间点所经历的总时长,是从Time.deltaTime累加上来的.
+Time,fixedDeltaTime: 每一物理帧所消耗的时间
+Time.timeScale: 时间缩放, 可以影响Time.deltaTime, FixedUpdate(), fixedTime
+
+////值类型和引用类型的区别, 类和结构体的区别

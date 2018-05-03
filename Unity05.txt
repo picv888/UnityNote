@@ -1,0 +1,92 @@
+物理运动公式:
+//匀速运动
+s = v * t;
+//匀加速运动 
+//初速度v0 时间t 在时刻t时的速度vt 
+vt = v0 + a * t;
+s = v0 * t + 1/2 * a * t^2;
+2*a*s = vt^2 - v0^2;
+
+
+RigiBody :刚体组件,加了此组件后, 游戏物体就变成刚体了 
+属性:
+Mass: 质量, 单位:千克 (物理中用m表示质量) 
+Drag: 空气阻力  
+Angluar Drag: 旋转角阻力
+Use Gravity: 是否启用重力, 修改重力加速度: 菜单 Edit - Project Setting - Physics 
+Is Kinematic: 是否为运动学刚体, 运动学刚体不会被力改变速度. 即运动学刚体受力不会移动, 只能通过改变Transform让其移动.
+Interpolate: 如果遇到物体抖动, 可以尝试选择其中一个值以解决这个问题(比较少使用),两个值分别是使用上一帧、下一帧的数据来使物体平滑运动,以解决抖动问题.
+Collision Detection: 碰撞检测频率, 选越下面的值检测的频率就越高,相应的性能消耗就越大,所以不推荐大家使用高精度的检测
+Constraints: 约束, 冻结某一根轴得的位移或者旋转.
+
+
+
+Collider类 碰撞器组件
+
+//当游戏物体有重合时, 会发生碰撞, 碰撞生命周期函数被调用
+碰撞生命周期函数
+void OnCollisionEnter(Collision collision) {
+
+}
+
+void OnCollisionStay(Collision collision) {
+
+}
+
+void OnCollisionExit(Collision collision) {
+
+}
+
+////Collistion类  碰撞信息的集合
+属性:
+Collider collider;//碰撞器
+GameObject gameObject;//和此游戏物体发生碰撞的游戏物体
+Rigidbody rigidbody;//和此游戏物体发生碰撞的刚体, 有可能为null
+
+发生碰撞的必要条件是什么?
+1.所有想要发生碰撞的游戏物体都必须带有碰撞器组件(Collider)
+2.至少一方带有刚体组件,最好是运动的一方(长时间不动的刚体会休眠的)
+3.如果一方是运动学刚体,想要发生碰撞,另外一方必须是非运动学刚体
+
+
+
+Collider的属性is Trigger 如果是true, 那么碰撞器就变成了触发器. 发生触发的必要条件和碰撞一样, 没有碰撞效果. 做游戏时可以用来做陷阱, 如站进火堆(触发器)里, 没有碰撞效果, 但玩家扣血.
+//触发器的生命周期函数
+void OnTriggerEnter(Collider other) {
+    other为
+}
+
+void OnTriggerStay(Collider other) {
+
+}
+
+void OnTriggerExit(Collider other) {
+
+}
+
+
+
+断掉预制体关联: 菜单GameObject - Break Prefab Instance
+
+//使用预制体生成游戏物体
+public GameObject bullet;
+public Transform gunPos;//在Assets中将预制体拖到Inspector面板赋值
+void Update(){
+    if (Input.GetKeyDown(KeyCode.Space))
+    {
+        //使用预制体bullet在gunPos.position创建游戏物体,朝向为 gunPos.rotation
+        Instantiate(bullet, gunPos.position, gunPos.rotation);
+    }
+}
+
+
+获取物体某个位置的坐标的技巧:在那个位置上放置一个空物体, 获取这个空物体的坐标即可
+
+//单独写一个销毁游戏物体的脚本组件, 并暴露一个销毁时间, 方便所有物体重用, 还单独配置销毁时间.
+
+生成游戏运行文件
+菜单 - File - Build Settings - 添加Scenes 然后选择运行平台点击Build
+
+改变物体的速度:获取刚体对象, 修改速度属性,或者给刚体加一个力
+
+

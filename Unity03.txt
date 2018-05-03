@@ -1,0 +1,65 @@
+Pivot： 坐标轴在游戏物体中心
+
+Center: 坐标轴在游戏物体和其所有子物体的中心
+
+Local： 显示游戏物体朝向的坐标轴
+
+Global: 显示世界坐标轴
+
+DicrectionalLight: 方向型光源、平行光源，用来模拟太阳光，光线角度只和光源的旋转角度有关，和光源位置无关。
+
+PointLight：用来模拟灯泡，向四周发散光线。
+
+SpotLight: 聚光灯，用来模拟手电筒等光源，向一个方向扩散型发散光线。
+
+父子物体： 在层级视图中，手动将一个游戏物体拖拽到另一个游戏物体下面，就变成了父子物体关系。
+特点：是子物体动，父物体不动。父物体动子物体也跟着动。
+作用：拼接游戏物体。
+注意：当形成父子物体关系之后，在检视面板中子物体的transform下的属性是相对父物体的值。比如position就是相对于父物体坐标为坐标原点的相对坐标，当游戏物体没有父物体时，世界就是父物体，这个时候坐标就是相对于世界的坐标位置。
+在代码中物体的transform是相对世界的值。
+建立游戏物体的父子关系，其实就是建立Transform的父子关系。
+gameObject.transform.parent = sphere.transform;
+
+不要缩放美术人员给我们的游戏物体，若大小比例不正确，找美术人员修改。
+
+用代码获取当前组件所挂载的游戏物体：
+gameObject属性，可以直接在继承自Component的类中使用，代表着当前组件所挂载的游戏物体的引用。
+
+////用代码获取组件：
+T GetComponent<T>() 如果获取Transform，就可以直接写transform，是Component类中的一个只读的成员属性，代表着当前这个组件对象所挂载的游戏物体身上的Transform组件。
+
+////查找游戏物体：
+GameObject GameObject.Find(string name);//通过游戏物体的名字查找，如果需要多次地使用该游戏物体，不要多次使用Find查找，因为Find比较消耗性能。
+
+用代码动态添加组件
+T : gameObject.AddComponent<T>() //添加T类型组件到所挂载的游戏物体，然后返回这个组件。
+如： //添加音源
+AudioSource audio = gameObject.AddComponent<AudioSource>();
+//添加光源
+Light lig = gameObject.AddComponent<Light>();
+//修改光源类型为聚光灯
+lig.type = LightType.Spot;
+
+用代码动态移除组件
+Destroy(Object obj);//移除组件obj
+Destroy(Object obj, float t);// t秒后移除组件obj
+
+
+用代码控制游戏物体平移：
+相对自己的坐标向前方移动：
+方法1：
+trans.position += trans.forward * Time.fixedDeltaTime;
+方法2：
+trans.Translate(Vector3.forward * Time.fixedDeltaTime);
+相对世界坐标向前方（Z轴正方向）移动
+方法1：
+trans.position += Vector3.forward * Time.fixedDeltaTime;
+方法2：
+trans.Translate(Vector3.forward * Time.fixedDeltaTime, Space.World);
+
+用代码控制游戏物体旋转: 
+transform.Rotate();
+
+判断是否为空, unity框架的Object类重写了bool运算符, 类对象类型可以隐式转换成bool类型: 
+if(obj)
+obj可以隐式转换成bool类型, 如果obj不是null, 则obj隐式转换成true, 否则为false.
