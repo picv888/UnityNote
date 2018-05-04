@@ -14,8 +14,9 @@ c3 = a1b2-a2b1
 Vector3 dir = girl.position - tranform.position;
 tranform.rotation = Quaternion.LookRotation(dir);
 
-////四元数 线性插值
+////四元数 球形插值Quaternion.Slerp()
 ////Quaternion API
 ////指定路径 匀速前进 匀速看向目标
-////fixedUpdate 和  Update
+////fixedUpdate 和 Update
+////检测物体是否在扇形区域内
 ////NGUI 的spirit  button  做一个点击按钮后减血量
