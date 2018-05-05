@@ -1,0 +1,9 @@
+////在Scene中用空物体测量游戏物体的宽高
+
+将图片的Texture Type设置为sprite 2D,变成精灵
+Sprite Mode:
+Single单张图
+Multiple多张图: pixels per Unit设置为100, 点击Sprite Editor,把有多个图案的图片切割为多个图
+制作动画:window - animation
+
+////弹幕
