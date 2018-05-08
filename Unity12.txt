@@ -1,0 +1,76 @@
+////镜头抖动
+
+力:有大小有方向的矢量,有受力点
+
+F = ma
+m1v1 = m2v2
+
+
+//增加力
+Rigidbody.AddForce(Vector3 force, ForceMode mode)
+//增加力矩, 绕轴
+Rigidbody.AddTorque(Vector3 axis);
+
+enum ForceMode{
+    Force : 持续力,完全满足动量定理  Ft = mv,  调用增加力、力矩的方法时,方法内部使用一个变量作为t,类似Time.deltaTime
+    Impulse : 瞬间冲击力,F = mv,直接给物体加一个速度,
+    VelocityChange : 忽略质量,直接改变速度 F = v, 给不同质量的物体附加力,速度也一样
+    Acceleration : 忽略质量,给一个加速度 Ft = v
+}
+ 
+
+Unity中的射线(结构体 Ray)
+
+用Physics类的静态方法投射射线
+public static boolbool Raycast(Ray ray);
+public static bool Raycast(Ray ray, out RaycastHit hitInfo);
+
+投射信息(结构体RaycastHit)
+point 投射点
+
+射线投射的最大距离是float类型的最大值
+
+投射到一个物体的唯一条件是这个物体必须有碰撞器组件Collider
+
+ray = new Ray(transform.position, Vector3.forward);
+if(Physics.Raycast(ray, out hitInfo)) {
+    Debug.Log("投射到了物体");
+    Debug.Log(hitInfo.transform.name);
+    Debug.DrawLine(transform.position, hitInfo.point, Color.red, 100);
+}
+
+
+位运算符
+& 与运算: 有0即为0, 全1才是1
+1001010  $
+1000111  
+----------
+1000010
+
+| 或运算: 有1就是1, 全0才是0
+1001010  |
+1110001  
+----------
+1111011
+
+~ 非运算: 1变0, 0变1
+~1101010
+--------
+ 0010101
+
+ ~ 异或运算: 相同即为0, 不同即为1
+ 1010001  ^
+ 1100010
+ ----------
+ 0110011
+
+ << 左移运算符: 所有二进制位向高位进位(左移), 高位补0
+  1010 << 1
+ ----------
+ 10100
+
+
+>> 右移运算符: 所有二进制位向低位移(右移), 丢失低位数据
+ 1011 >> 1
+ ----------
+  101

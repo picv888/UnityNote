@@ -53,7 +53,7 @@ Rigidbody rigidbody;//和此游戏物体发生碰撞的刚体, 有可能为null
 Collider的属性is Trigger 如果是true, 那么碰撞器就变成了触发器. 发生触发的必要条件和碰撞一样, 没有碰撞效果. 做游戏时可以用来做陷阱, 如站进火堆(触发器)里, 没有碰撞效果, 但玩家扣血.
 //触发器的生命周期函数
 void OnTriggerEnter(Collider other) {
-    other为
+    
 }
 
 void OnTriggerStay(Collider other) {

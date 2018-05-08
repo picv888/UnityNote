@@ -1,0 +1,5 @@
+////Camera组件
+
+设置游戏窗口分辨率
+在Update()方法里:
+Screen.SetResolution(848, 1472, false);
