@@ -1,4 +1,4 @@
-////在Scene中用空物体测量游戏物体的宽高
+在Scene中用空物体测量游戏物体的宽高
 
 将图片的Texture Type设置为sprite 2D,变成精灵
 Sprite Mode:

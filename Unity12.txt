@@ -1,5 +1,3 @@
-////镜头抖动
-
 力:有大小有方向的矢量,有受力点
 
 F = ma
@@ -12,7 +10,7 @@ Rigidbody.AddForce(Vector3 force, ForceMode mode)
 Rigidbody.AddTorque(Vector3 axis);
 
 enum ForceMode{
-    Force : 持续力,完全满足动量定理  Ft = mv,  调用增加力、力矩的方法时,方法内部使用一个变量作为t,类似Time.deltaTime
+    Force : 持续力,完全满足动量定理  Ft = mv,  调用增加力、力矩的方法时,方法内部使用一个变量作为t,类似Time.deltaTime, 在Update()中使用可以模拟匀加速运动
     Impulse : 瞬间冲击力,F = mv,直接给物体加一个速度,
     VelocityChange : 忽略质量,直接改变速度 F = v, 给不同质量的物体附加力,速度也一样
     Acceleration : 忽略质量,给一个加速度 Ft = v
@@ -110,3 +108,6 @@ enum QueryTriggerInteraction {
   int mask2 = (1<<7) & (1<<9);
   
 
+////射线检测离地面高度
+////模拟爆炸效果，越近的受力越大
+////镜头抖动

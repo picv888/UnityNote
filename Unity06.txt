@@ -3,8 +3,6 @@ Unity API文档中文版 http://www.ceeger.com/Script/Runtime.Classes.html
 
 空气墙: 把网格渲染Mesh Renderer组件失活, 游戏物体不渲染出来就成了空气墙
 
-////摄像头跟随
-
 3D数学: 利用数学的方式解决计算几何的问题
 
 标量: 只有大小的量
@@ -41,19 +39,10 @@ Camera.main主摄像机 tag为MainCamera的摄像机
 
 
 
-////摄像机跟随, 只跟随Y轴转动,不跟随XZ轴转动, 
-
 ////没有父transform时的localPosition是什么
 
 ////作业 Vector3类里的normalized和Normalized()的区别
 
 ////camera.transform.parent是什么
-
-匀速运动
-////UniformMotion
-
-////军事模型
-
-////微信游戏最强弹一弹
 
 ////游戏dancingline
