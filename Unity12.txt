@@ -22,11 +22,12 @@ enum ForceMode{
 Unity中的射线(结构体 Ray)
 
 用Physics类的静态方法投射射线
+//是否投射到物体
 public static boolbool Raycast(Ray ray);
+//投射第一个物体, hitInfo是投射信息(结构体)
 public static bool Raycast(Ray ray, out RaycastHit hitInfo);
 
-投射信息(结构体RaycastHit)
-point 投射点
+
 
 射线投射的最大距离是float类型的最大值
 
@@ -36,8 +37,36 @@ ray = new Ray(transform.position, Vector3.forward);
 if(Physics.Raycast(ray, out hitInfo)) {
     Debug.Log("投射到了物体");
     Debug.Log(hitInfo.transform.name);
+    //hitInfo.point是投射到物体上的点
     Debug.DrawLine(transform.position, hitInfo.point, Color.red, 100);
 }
+
+//穿透物体,返回所有物体表面的投射信息
+RaycastHit[] hitInfos = Physics.RaycastAll(ray);
+
+//返回球形内的所有碰撞体
+Collider[] colliders = Physics.OverlapSphere(Vector 位置, float 半径);
+
+enum QueryTriggerInteraction {
+        //
+        // 摘要:
+        //     ///
+        //     Queries use the global Physics.queriesHitTriggers setting.
+        //     ///
+        UseGlobal = 0,
+        //
+        // 摘要:
+        //     ///
+        //     Queries never report Trigger hits.
+        //     ///
+        Ignore = 1,
+        //
+        // 摘要:
+        //     ///
+        //     Queries always report Trigger hits.
+        //     ///
+        Collide = 2
+    }
 
 
 位运算符
@@ -74,3 +103,10 @@ if(Physics.Raycast(ray, out hitInfo)) {
  1011 >> 1
  ----------
   101
+
+
+  层级遮罩(LayerMask 枚举)
+  int mask = LayerMask.GetMask(new string[] {"Enemy","Player"});
+  int mask2 = (1<<7) & (1<<9);
+  
+
