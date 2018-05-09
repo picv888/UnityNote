@@ -1,0 +1,13 @@
+////《3D数学基础图形与游戏开发》《Unity Shader入门精要》《算法导论》
+
+//延迟函数
+//time秒后执行方法名为methodName的方法, 如果对象被销毁了则不会执行
+//游戏物体、组件被失活也不影响方法执行
+Invoke(string methodName, float time);
+
+//延迟time秒执行一个方法,然后每隔reapteRate秒执行一次
+InvokeRepeating(string methodname, float time, float reapteRate);
+
+//取消延迟执行的方法
+public void CancelInvoke(string methodName);
+public void CancelInvoke();
