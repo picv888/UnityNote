@@ -11,3 +11,9 @@ InvokeRepeating(string methodname, float time, float reapteRate);
 //取消延迟执行的方法
 public void CancelInvoke(string methodName);
 public void CancelInvoke();
+
+//OnGUI在游戏物体上画血条,判断物体在摄像机后面、前面,血量减少
+//切换游戏场景
+using UnityEngine.Scenemanagement;
+
+//异步加载,显示滚动条,最后切换场景
