@@ -1,0 +1,23 @@
+Sprite2D:
+2D精灵, 有两种用途
+其一是当做UI贴图
+其二是当做2D精灵直接作为2D游戏物体
+
+Sprite Renderer 2D精灵渲染器
+
+////Unity 官方资源包
+
+ 
+打包图集:Sprite Mode设置为Multiple, Packing Tag设置为同一个名字, 然后在
+Window - Sprite Packer
+
+Sprite Renderer 2D精灵渲染器
+属性:
+sprite: 指定让精灵渲染器渲染哪个sprite 
+Sorting layer: 渲染顺序,越靠下的选项越后渲染, 后渲染的会覆盖先渲染的
+Order in Layer: 同一Sorting Layer下的渲染顺序, 数值越大越后渲染, 后渲染的会覆盖先渲染的
+
+
+Collider2D 2D碰撞器,不在一个深度也能碰撞
+
+////Physic2D 发射2D射线, 不在一个深度能碰撞吗
