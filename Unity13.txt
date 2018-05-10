@@ -17,3 +17,4 @@ public void CancelInvoke();
 using UnityEngine.Scenemanagement;
 
 //异步加载,显示滚动条,最后切换场景
+SceneManager
