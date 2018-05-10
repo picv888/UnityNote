@@ -3,21 +3,95 @@ Sprite2D:
 其一是当做UI贴图
 其二是当做2D精灵直接作为2D游戏物体
 
-Sprite Renderer 2D精灵渲染器
 
-////Unity 官方资源包
+Texture贴图:
+Texture Type贴图类型:
+Default默认模式：普通贴图，贴图会转换成一个材质球，赋予游戏物体使用
+Normal Map法线贴图：令贴图看起来有凹凸质感，同上，且用于物体贴图的Normal Map层
+Sprite（2D and UI）精灵模式：是个游戏物体拖进场景中，也可以作为UI素材使用
+Sprite Mode精灵模式：
+Single 单图模式 ：只有一张图
 
- 
+Multiple 多图模式 ：可以切出多个单图，生成一个图集
+切割方式：
+Automatic：自动切割
+Grid By Cell Size：按照尺寸来切割
+Grid By Cell Count：按照数量来切割
+
+Packing Tag 图片标签：可以用于Sprite Packer对于Atlas进行更好的区分打包
 打包图集:Sprite Mode设置为Multiple, Packing Tag设置为同一个名字, 然后在
-Window - Sprite Packer
+Window - Sprite Packer - 可以打包到一个图集里
 
-Sprite Renderer 2D精灵渲染器
-属性:
-sprite: 指定让精灵渲染器渲染哪个sprite 
+Sprite Renderer 2D精灵渲染器：为了渲染Sprite使用
+Coler 附加颜色：
+Flip 翻转：沿着一个轴进行镜像翻转
+Material 材质：
+Draw Mode 绘图模式：Simple 普通模式 / Sliced 切割模式 / Tiled 平铺模式
 Sorting layer: 渲染顺序,越靠下的选项越后渲染, 后渲染的会覆盖先渲染的
 Order in Layer: 同一Sorting Layer下的渲染顺序, 数值越大越后渲染, 后渲染的会覆盖先渲染的
 
+EXAMPLE：用代码写一个动画
+获取图片：
+public Sprite [ ] sprites；
+获取组件：
+private SpriteRenderer SpriteRenderer；
+SpriteRenderer = GetComponent<SpriteRenderer>();
+给个切换时间：
+public float timeInterval = 0.1f；
+给个计时器：
+private float curTime = 0；
+创建个索引：
+private int curIndex = 0；
+在UPDATE中，计时器随着时间增加：
+curTime += Time.deltaTime；
+当实际时间大于我们设定的切换时间的时候：
+if（curTime>= timeInterval）
+索引增加，并且把索引轮换在图集长度内：
+curIndex++；
+curIndex %= sprites.Length；
+图集轮播：
+spriteRenderer.sprite = sprites[ curIndex ]；
+重置计时器：
+curTime = 0；
 
-Collider2D 2D碰撞器,不在一个深度也能碰撞
+转身最好利用缩放来调整方向，因为单纯的使用flipX会导致某些情况下的错位
+
+2D物理部分：
+碰撞检测：OnCollisionEnter2D/OnCollisionExit2D/OnCollisionStay2D
+触发检测：
+射线检测：Physics2D.Raycast（）
+
+Animator 动画机窗口 ：
+Any State 任何状态：
+Entry 入口：
+Idle 待机状态：
+橙色的状态是默认初始状态
+有进度显示的意思是正在执行该动画，执行到的百分比
+右键>Make Transition：创建跳转
+满足一定条件下会按照箭头方向跳转动画
+inspector窗口内：
+Transitions 变换窗口：Solo 优先 / Mute 禁止
+Conditions 条件窗口：与Parameters中的条件是对应的，
+Parameters 条件创立：中点击加号
+Float：
+Int：
+Bool：√就是True，否则就是False
+Trigger：
+
+inspector窗口：
+Motion 动画：放入动画
+Speed速度百分比：调整动画播放速度
+
+
+Animation 动画窗口：打开方式 Window>Animation
+Samples 频率：数值越高，图形切换越快
+点击Idle位置可以创建更多的动作动画
+
+Collider2D 2D碰撞器,物体不在一个深度也能碰撞
+
+
+////2D精灵左右走动，跳动，走动动画，静止动画，跳动动画,双击A、D跑动
 
 ////Physic2D 发射2D射线, 不在一个深度能碰撞吗
+
+////平台特效 Platform Effector，可以从单向穿过碰撞体而不发生碰撞，另一个方向则会发生碰撞
