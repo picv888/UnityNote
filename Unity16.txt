@@ -1,0 +1,59 @@
+动画形式:
+1.纯数学: 例如:给物体增加刚体,弹力材质,物体在地面弹跳动画.即通过物理演算游戏物体的信息
+    增加物理材质使物体有弹力,两个物体都增加物理材质,只有一个物体添加会只有一半弹力.
+2.关键帧: 一个文件把所有关键帧都记录起来
+
+
+注意区分笔记中的Animation和Animator, 分别是老动画帧系统、新动画帧系统
+
+
+Animation: 老的动画帧的系统
+如何建立动画文件:
+1.打开Animation窗口,顶部菜单 - Window - Animation(快捷键Ctrl+6)
+2.在Hierarchy窗口选择游戏物体,添加Animation组件
+3.在Project窗口Create一个animtion文件(后缀名.anim), 把文件拖到创建的Animation组件中
+4.在Inspector打开Debug模式, 在Project点击anim文件, 在Inspector勾选legacy模式.才可以播放旧动画.否则播放动画时会报错counldn't be found
+5.创建后默认有一个关键帧片段,名字为"New Animation",动画片段是用来记录关键帧的
+6.创建关键帧片段: 点击关键帧名字 - Create New Clip 
+7.手动添加关键帧: 所有的组件都可以在动画片段中驱动. 点击Add property, 添加你想记录的属性,如transfoem.position, 修改想记录的值. 记录关键帧在窗口右边的数字不是时间, 是帧偏移点, 点击数字选择帧偏移点,点击Add KeyFrame
+    自动添加关键帧: 点击录制按钮(红色圆形按钮),选择帧便宜点,修改物体属性
+8.代码控制播放旧动画
+public bool Play();
+public bool Play(string animation);
+9.代码控制切换关键帧片段:Animation组件中可以添加多个关键帧片段
+//传入关键帧片段名:
+Animation.Play("anim1");
+Animation.Play("anim2") 
+10.暂停播放 Animation.Stop()
+11.添加帧事件, 添加了帧事件后如果没有选择函数,会出现错误:AnimationEvent has no function name specified
+
+
+如何从模型文件提取动画文件Clip:一般都是动画师制作模型. 前提是模型文件中有动画.
+实际项目中,动画师需要提供关键帧的表, 什么动画在模型中的起始帧在第几帧,帧数等信息
+点击模型文件,在Inspector窗口,Animation就是动画.  Rig中将Animation Type改成lagacy,点击apply
+有的动画师会在一个模型中做多个动画片段,多选然后Ctrl+D提取出来
+模型预制体 推荐换成 普通的预制体,模型预制体对一些属性的修改有限制, 而且模型预制体的文件体积很大
+如果模型的骨骼一样,可以用同一套动画,是否是一样的骨骼去问动画师
+
+
+
+使用Animation组件来播放Animation Clip
+
+
+重用anim文件的技巧, 在子物体中添加动画, 就可以使用相对父物体的坐标来运行动画
+
+
+在Unity中拖拽组件到属性中,比代码获取高效
+
+
+Animator: 新的动画帧系统
+1.创建动画:选择游戏物体,在Animation窗口点击Create, Unity会自动一个动画文件(.anim文件), 输入文件名,保存. Unity还会自动给游戏物体增加一个动画组件Animator
+
+
+.anim文件 的Wrap Mode属性: 
+Once : 播放一次,再次调用方法还会重新播放,
+Clamp Forever: 播放一次,再次调用方法也不会重新播放,
+Loop : 循环播放
+
+////玩家走动 接近 怪物 掉血 死亡
+////写一个通用的对象池类
