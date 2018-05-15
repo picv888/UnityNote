@@ -13,7 +13,7 @@ Animation: 老的动画帧的系统
 2.在Hierarchy窗口选择游戏物体,添加Animation组件
 3.在Project窗口Create一个animtion文件(后缀名.anim), 把文件拖到创建的Animation组件中
 4.在Inspector打开Debug模式, 在Project点击anim文件, 在Inspector勾选legacy模式.才可以播放旧动画.否则播放动画时会报错counldn't be found
-5.创建后默认有一个关键帧片段,名字为"New Animation",动画片段是用来记录关键帧的
+5.创建后Animation窗口中默认有一个关键帧片段,名字为"New Animation",动画片段是用来记录关键帧的
 6.创建关键帧片段: 点击关键帧名字 - Create New Clip 
 7.手动添加关键帧: 所有的组件都可以在动画片段中驱动. 点击Add property, 添加你想记录的属性,如transfoem.position, 修改想记录的值. 记录关键帧在窗口右边的数字不是时间, 是帧偏移点, 点击数字选择帧偏移点,点击Add KeyFrame
     自动添加关键帧: 点击录制按钮(红色圆形按钮),选择帧便宜点,修改物体属性

@@ -23,4 +23,7 @@ Humanoid 布娃娃动画
 
 ////Has exit time,  切换动画时什么时候退出当前动画, 每个动画转换条件都有这个选项
 
+////UnituAction<T>
+////UnityEvent
+
 ////状态机
