@@ -1,0 +1,35 @@
+Animator{
+    没有办法直接调用动画 : 通过一个动画控制器来播放动画,可以设置动画控制器的参数来达到播放某一动画
+
+    建立动画控制器 : 在Project窗口 - 右键Create - Animator Controller
+
+    使用动画控制器 : {
+        将动画控制器拖给具有Animator组件的游戏物体
+
+        编辑各动画节点的逻辑
+    } 
+    
+    把模型里的动画文件提取出来, 模型弄成预制体, 因为有可能多个模型使用同一个动画文件
+}
+
+
+编辑骨骼动画{
+    Animator组件 - 右上角齿轮图标 - Deoptimize Transform Hierarchy
+}
+
+Animator组件: 
+是否允许动画位移Apply Root Motion
+
+
+使用hash值给animator传参
+
+
+ 动画融合树
+
+
+ Animator窗口{
+     Layers(旧动画Animation极难做到的效果)
+ }
+
+
+ ////跳转动画里的has exit time 和 setting
