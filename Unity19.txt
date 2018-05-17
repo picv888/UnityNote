@@ -1,0 +1,147 @@
+IK动画: 反向动力学动画 {
+    必须是新动画系统Animator
+
+    模型的动画类型必须是Humanoid
+
+    动画系统的 IKPass必须开启: Animator窗口, Layer右上角的齿轮 - IK Pass
+
+    相应的IK调整方法只能写在生命周期函数void OnAnimatorIK (int layerIndex), 脚本组件必须和Animator组件在同一个物体里.
+    ////在什么时候被调用?
+    void OnAnimatorIK (int layerIndex) {
+        //用代码调整头部看向的方向
+        anim.SetLookAtPosition (Vector3 lookAtPosition);
+        //调整IK动画的权重,如果是1代表完全按代码逻辑播放动画,如果是0完全按原动画播放
+        anim.SetLookAtWeight (float weight);
+
+        //调整四肢IK的目标点
+        anim.SetIKPosition (AvatarIKGoal goal, Vector3 goalPosition);
+        //调整四肢IK动画的权重
+        anim.SetIKPositionWeight (AvatarIKGoal goal, float value);
+
+        //调整四肢IK关节的目标点
+        anim.SetIKHintPosition (AvatarIKHint hint, Vector3 hintPosition);
+        //调整四肢IK关节动画的权重
+        anim.SetIKHintPositionWeight (AvatarIKHint hint, float value);
+
+        //调整四肢IK的朝向
+        anim.SetIKRotation (AvatarIKGoal goal, Quaternion goalRotation);
+        //调整四肢IK的朝向动画的权重
+        anim.SetIKRotationWeight (AvatarIKGoal goal, float value);
+
+        //调整四肢IK关节的朝向
+        anim.SetIKHintPosition (AvatarIKHint hint, Vector3 hintPosition);
+        //调整四肢IK关节的朝向动画的权重
+        anim.SetIKHintPositionWeight (AvatarIKHint hint, float value);
+    }
+}
+
+Particle System: 粒子系统 {
+    修改 {
+        大小 {
+            我们没有办法通过GameObject的Scale改粒子的大小
+
+            可以通过StarSize修改粒子的大小
+
+            可以通过Sizeoverlife曲线修改粒子的大小
+        }
+    }
+
+    启动碰撞 {
+
+    }
+}
+
+第三人称射击 {
+    怪物管理器 {
+        分析是否刷新怪物 {
+            怪物的数量是否小于设置的数量
+        }
+    }
+
+    怪物 {
+        死亡 {
+            通知管理器自己死了
+
+            把自己毁灭
+        }
+
+        行走 {
+            调用寻路机制,
+            找目标点
+        }
+
+        闲置 {
+            如果玩家死了,
+            就闲置
+        }
+    }
+}
+
+塔防 {
+    怪物管理器{
+        分析是否刷新怪物 {
+            刷怪时间: 如果怪物死光了,
+            刷怪时间清0
+        }
+    }
+
+    怪物 {
+        死亡 {
+            通知管理器自己死了
+
+            通知玩家加金币
+
+            把自己毁灭: 对象池
+        }
+
+        行走 {
+            寻路: 从当前点走向下一点,
+            如果到达下一点,
+            把下一点设置成当前点,
+            并检测新的下一点
+        }
+
+        闲置 {
+
+        }
+    }
+
+    玩家 {
+        在玩家有足够金币,
+        可以在塔基上修塔
+
+        塔会攻击怪物 {
+            如果怪物进入到我的攻击范围,
+            并且我没有当前目标,
+            把怪物设置成当前目标
+
+            如果怪物离开我的攻击范围 {
+                判定此怪是不是当前目标
+
+                如果是当前目标, 清空当前目标
+            }
+
+            如果我有当前目标 {
+                进入攻击状态 {
+                    如果当前目标在攻击状态允许的条件内 {
+                        实例化一个子弹
+
+                        把子弹的目标设置成当前目标
+
+                        刷新CD
+                    }
+                }
+            }
+        }
+    }
+
+    子弹 {
+        飞向目标 {
+            目标进入范围 {
+                调用目标的Damage () 方法
+            }
+        }
+    }
+}
+
+关掉雾: Window - Lighting - Setting - Other Settings - Fog - 勾去掉
