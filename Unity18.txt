@@ -1,5 +1,6 @@
 Animator {
-    没有办法直接调用动画: 通过一个动画控制器来播放动画,
+    没有办法直接调用动画: 通过一个动画控制器来播放动画
+    
     可以设置动画控制器的参数来达到播放某一动画
 
     建立动画控制器: 在Project窗口 - 右键Create - Animator Controller
@@ -10,12 +11,10 @@ Animator {
         编辑各动画节点的逻辑
     }
 
-    把模型里的动画文件提取出来,
-    模型弄成预制体,
-    因为有可能多个模型使用同一个动画文件
+    把模型里的动画文件提取出来, 模型弄成预制体, 因为有可能多个模型使用同一个动画文件
 }
 
-编辑骨骼动画 {
+显示骨骼的Transform {
     Animator组件 - 右上角齿轮图标 - Deoptimize Transform Hierarchy
 }
 
@@ -49,11 +48,9 @@ Make Transition: 状态过渡 {
         Can Transition To Self : 是否能过渡到自己
     }
 }
-setting
 
 BlendTree in State: 状态融合树 {
     创建: 在Animator窗口里右键点击状态 - Create new BlendTree in State
-
 }
 
-https: //blog.csdn.net/qq_34134078/article/details/53092653
+https://blog.csdn.net/qq_34134078/article/details/53092653
