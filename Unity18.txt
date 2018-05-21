@@ -18,6 +18,10 @@ Animator {
     Animator组件 - 右上角齿轮图标 - Deoptimize Transform Hierarchy
 }
 
+关闭显示骨骼的Transform {
+    Animator组件 - 右上角齿轮图标 - Optimize Transform Hierarchy
+}
+
 Animator组件 {
     Apply Root Motion: 是否允许动画位移
 }
