@@ -1,0 +1,246 @@
+UGUI {
+    所有的UGUI组件必须放在Canvas下才能显示
+
+    创建UGUI组件时， 会自动创建Canvas和EventSystem
+
+    Image组件（ 显示图片） {
+        创建Image
+
+        Image {
+            Color： 叠加颜色
+
+            Raycast Target： 是否接收UGUI事件系统的射线检测
+
+            Image Type 图片显示模式 {
+                Simple 单一的 {
+                    Preserve Aspect： 框内原比例显示
+
+                    Set Native Size： 图片显示原尺寸
+                }
+
+                Tield 平铺模式 {
+                    Sprite的Wrap Mode要使用Repeat模式。
+
+                    设置Sprite的Border（ 九宫格）， 可以平铺九宫格中间的部分
+                }
+
+                Filled 填充模式 {
+
+                    Fill Method 填充方式
+
+                    Fill Origin 填充起点 {
+                        Left 从左往右依次显示
+                    }
+
+                    Fill Amount 填充百分比， 0 没有， 1 全部显示
+
+                    clockwise 是否顺时针填充
+
+                    Preserve Aspect 是否原比例显示
+
+                    Set Native Size： 图片显示原尺寸
+                }
+
+                Slice 切片模式 {
+                    使用该模式， 需要设置Sprite的Border（ 九宫格）
+
+                    Fill Center： 是否显示中间的切片（ 九宫格的中间那一格）， 取消勾则中间透明
+
+                    作用： 优化图片尺寸， 多种大小的Image组件可以重用同一个图
+                }
+            }
+        }
+
+        设置Sprite的Border： 点击Sprite Editor， 在Sprite Editor窗口设置Border的值或者拖动图片上的绿点， 点击Apply
+    }
+
+    代码控制Image组件 {
+        using UnityEngine.UI
+        class Image {
+            color： 叠加颜色
+
+            sprite: 原来的图片
+
+            overrideSprite: 在原来的Sprite图片不变的基础上覆盖一层图片， 当overrideSprite = null的时候， 显示sprite的图片
+            当sprite = null时， 最终显示， 如果overrideSprite有图， 显示ovrideSprite的图片， 如果没有显示叠加颜色。
+
+            fillAmount： 填充百分比
+        }
+
+        class Sprite {
+            name: 图片的文件名， 如果sprite是图集中的其中一个图片， 是这个图片的名字
+
+            //这样可以加载图片
+            Sprite sprite = Resources.Load<Sprite> ("Texture/img");
+
+            //这样加载不到图片
+            Sprite sprite2 = Resources.Load ("Texture/img") as Sprite;
+
+            //获取图集Texture/img中的全部图片
+            Sprite[] spArr = Resources.LoadAll<Sprite> ("Texture/img");
+
+            //根据名字获取图集中的图片
+            string imgName = "data.dat 00003_17";
+            Sprite sprite3 = null;
+            foreach (var item in spArr) {
+                if (item.name == imgName) {
+                    sprite3 = item;
+                }
+            }
+            //也可以把图片存到一个字典中，key使用sprite的name
+            Dictionary<string, Sprite> spriteDict = new Dictionary<string, Sprite> ();
+            foreach (var item in spArr) {
+                spriteDict.Add (item.name, item);
+            }
+            sprite3 = spriteDict[imgName];
+        }
+    }
+
+    Raw Image {
+        texture： 任意的图片类型都可以
+
+        UV Rect {
+            X、 Y： 图片在显示框内x、 y轴方向的偏移百分比， x为正数时向左偏， y为正数时向下偏
+            W、 H： 图片在显示框内的显示百分比， W为0 .5 时只能显示图片横向的一半
+        }
+
+        游戏背景滚动： 把图片的WarpMode 设置成Repeat或者Mirror (镜像), 然后定时修改UV Rect控制偏移
+
+        拼图游戏：
+    }
+
+    Text组件(显示文字) {
+        Text： 文本的内容
+
+        Font: 字体
+
+        Font Style 字体样式 {
+            正常
+            加粗
+            倾斜
+            加粗且倾斜
+        }
+
+        Font Size： 字体大小， 注意字体的大小要适应你的文本框， 否则可能出现不显示的情况
+
+        Line Spacing: 行间距百分比， 如果行间距为0， 两行重合。
+
+        Rich Text 是否支持富文本 {
+            勾上后支持富文本， 能改变局部的文本的样式（ 大小， 颜色， 字体样式， 加粗， 斜体）
+
+            文本内容用XML格式书写， 如： "
+                <color=red>红色</color>
+                <color=#00ffffff>青色完全不透明(16进制RGBA)</color>
+                <size=40>字体大小40</size>
+                <b>加粗</b>
+                <i>倾斜</i>
+                <i><b>倾斜、加粗</b></i>
+                "
+        }
+
+        Aligment: 对齐方式
+
+        Align By Geometry： 视觉几何对齐
+
+        Horizontal Overflow 水平的移除方式 {
+            溢出
+            换行
+        }
+
+        Vertical Overflow 垂直的溢出方式 {
+            截断
+            溢出
+        }
+
+        Best Fit 是否字体大小自适应 {
+            Min Size 字体最小值
+            Max Size 字体最大值
+        }
+
+        代码控制Text {
+            Text text;
+            //代码里的RGB的取值范围是0~1
+            //RGB 230 0 255
+            text.color = new Color (230 / 255f, 0, 255 / 255f);
+        }
+    }
+
+    常用颜色名 {
+        "aqua (same as cyan) 同青色 #00ffffff
+        black 黑色	#000000ff
+        blue 蓝色 #0000ffff	
+        brown 棕色	#a52a2aff
+        cyan (same as aqua) 青色 #00ffffff	
+        darkblue 深蓝色	#0000a0ff
+        fuchsia (same as magenta) 紫红色（ 同洋红）#ff00ffff
+        green 绿色 #008000ff	
+        grey 灰色	#808080ff
+        lightblue 浅蓝色# add8e6ff
+        lime 青橙绿 #00ff00ff	
+        magenta (same as fuchsia) 洋红色（同紫红色）	#ff00ffff
+        maroon 褐红色 #800000ff	
+        navy 海军蓝	#000080ff
+        olive 橄榄色 #808000ff	
+        orange 橙黄色	#ffa500ff
+        purple 紫色 #800080ff	
+        red 红色	#ff0000ff
+        silver 银灰色#c0c0c0ff
+        teal 蓝绿色 #008080ff	
+        white 白色	#ffffffff
+        yellow 黄色#ffff00ff"
+    }
+
+    Button组件 {
+        Interactable: 是否可以交互
+
+        Transition 过渡类型 {
+            无过渡
+
+            Color Tint 颜色过渡 {
+                Target Graphic： 之地当过渡的图像
+                Normal Color： 正常情况下的颜色
+                Highlighted Color: 进入按钮或者选中按钮时的颜色
+                Pressed Color： 按下时的颜色
+                Disabled Color： 不可交互时的颜色
+                Color Multiplier: 颜色系数， 最终显示的颜色RGB值 = 选择的RGB分别乘以颜色系数
+                Fade Duration： 按下button时颜色渐变的时间
+            }
+
+            Sprite Swap 图片过渡 {
+                Target Graphic： 指定过渡的图片
+                Highlighted Sprite: 进入按钮或者选中按钮时的图片
+            }
+
+            Animation 动画过渡 {
+                依赖于动画状态机
+                Normal Trigger、 Highlighted Trigger、 Pressed Trigger、 Disabled Trigger对应了动画状态机里的Trigger
+                每个状态播放不同的动画
+            }
+
+            OnClick 点击按钮回调方法组 {
+                拖拽添加回调方法 {
+                    添加脚本， 脚本里添加public的方法， 方法可以有一个参数
+                    点击OnClick面板的＋
+                    选择脚本， 选择添加的public的方法
+                }
+                
+                代码控制按钮{
+                    //添加回调
+                    //action是无参无返回的委托
+                    button.onClick.AddListener(UnityAction action);
+
+                    //删除回调
+                    button.onClick.RemoveListener(UnityAction action);
+
+                    //执行OnClick里储存的所有回调
+                    button.onClick.Invoke();
+                }
+            }
+        }
+
+        Navigation 导航 {
+            None 关闭导航
+            Automatic： 多个按钮都选这个状态， 点击按钮后， 按钮变成选中状态， 可以用方向键在不同按钮间切换
+        }
+    }
+}
