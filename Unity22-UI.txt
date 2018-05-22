@@ -1,0 +1,132 @@
+RectTransform 组件 {
+
+    Anchors 锚点锚框 {
+        当MinX和MaxX相等， 且MinY和maxY相等时， 4 个点组成锚点， 否则组成锚框
+        实际4个点， 界面以雪花形式显示
+        当4个点在一起时组成锚点， 当4个点分开的时候， 组成锚框
+
+        Min X: 控制左两个点， 当为0时， 左两个点在父物体边框的左边缘， 当为1时， 左两个点在父物体边框的右边缘， 取值范围并不限制0~1
+        Min Y: 控制下两个点， 当为0时， 下两个点在父物体边框的下边缘， 当为1时， 下两个点在父物体边框的上边缘
+        Max X: 控制右两个点， 当为0时， 左两个点在父物体边框的左边缘， 当为1时， 左两个点在父物体边框的右边缘， 取值范围并不限制0~1
+        Max Y： 控制上两个点， 当为0时， 下两个点在父物体边框的下边缘， 当为1时， 下两个点在父物体边框的上边缘
+    }
+
+    Pivot： 轴心点， 物体相对旋转、 缩放的轴心 {
+        点击Pivot - Center按钮， 变成Pivot物体才会显示轴心点
+        x : 0 在物体的左边框， 1 在物体右边框
+        y : 0 在物体下边框， 1 在物体上边框
+    }
+
+    当4个点在一起时： PosX, PosY, PosZ: 物体轴心点相对于锚点的坐标， ////正数是什么方向
+    Width, Height: 物体的宽高
+
+    锚框 {
+        Left： 物体的左边框距离左两个锚点组成的左锚框的距离， 正数表示在左锚框的右边
+        Top： 物体的上边框距离上两个锚点组成的上锚框的距离， 正数表示在上边框的下面
+        Right： 物体的右边框距离右两个锚点组成的右边框的距离， 正数表示在右边框的右边
+        Bottom： 物体的下边框距离下两个锚点组成的下边框的距离， 正数表示在下边框的下面
+    }
+
+    Rect Transform的两个可选的编辑模式： width、 hight后的两个按钮。
+    第一个按钮： 选择后不能用鼠标旋转图片
+    第二个按钮： 选择后当改变轴心点的值时， 轴心点不动， 图片动
+
+    Rotation： 物体旋转欧拉角
+
+    ////练习 锚点在不同位置  相对父物体位置
+
+    代码获取RectTransform组件 {
+        //1.手动拖拽
+        public RectTransform rt;
+        //2.获取组件
+        RectTransform rt2 = GetComponent<RectTransform> ();
+        //3.里氏转换
+        RectTransform rt3 = transform as RectTransform;
+    }
+}
+
+代码控制RectTransform {
+
+}
+
+Canvas 画布组件 {
+    所有的UGUI组件都需要放在Canvas才能显示
+
+    Render Mode 渲染模式 {
+        Screen Space - Overlay 屏幕空间 - 覆盖渲染模式 {
+            这种模式下， 所有UI都会被放在最前方， 会覆盖掉其他物体显示。
+
+            Sort order： 多个Canvas都选择这个模式时， 值大的Canvas下的UI组件后渲染。
+        }
+
+        Screen Space - Camera 屏幕空间 - 相机渲染模式 {
+            该模式下， 必须制定一个渲染该Canvas的摄像机， 3D物体可以遮挡住UI。
+
+            Plane Distance： 画布和渲染该画布的摄像机的距离， Canvas的位置跟随摄像机， Z轴的值加上Plane Distance。
+
+            该模式下， 不同的Canvas渲染的关系 {
+                首先判断Sorting Layer, 值越靠后越后渲染。
+                如果Sorting Layer值相同， 再判断 Order in Layer， 值越大越后渲染。
+                如果Order in Layer值也相同， 再判断Plane Distance， 距离相机越近越后渲染。
+            }
+        }
+
+        World Space 世界空间渲染模式 {
+            不常用的模式， 只有该模式下 Canvas的Rect Transform才能编辑， 并且纵深Z值有效了， 近大远小
+            默认有一个相机
+        }
+    }
+}
+
+Canvas Scaler（ Script） 组件 {
+    UI Scale Mode 缩放模式 {
+        Contant pixel Size {
+            不常用， 画布尺寸会随着屏幕的像素变化， 不便于适配
+        }
+
+        Scale With Screen Size {
+            常用的模式， 画布大小和屏幕无关， 自己制定画布的尺寸像素， 方便适配不同显示屏幕
+
+            Screen Match Mode 屏幕适配模式 {
+                Match With or Height: 最常用的模式， 以屏幕宽或高作为适配
+                Expand： 不管屏幕分辨率多少， 画布的内容一定要全部显示出来
+                Shrink： 不管屏幕分辨率多少， 一定要使用画布的内容充满整个屏幕
+            }
+        }
+    }
+}
+
+Graphic Raycaster (Script) 组件 {
+    Ignore Reversed Graphics: 是否忽略反面的射线检测， 一般都忽略
+
+    Blocking Objects: 指定物体对UI射线检测产生影响（ 非overlay情况）
+
+    BlocKing Mask： 指定哪一个层的物体对UI射线检测产生影响
+}
+
+Toggle (Script) 单选框组件 {
+    Is On: 是否选中
+
+    Toggle Transition： 淡入淡出效果
+
+    Graphic： 选中时显示的图片
+
+    On Value Changed (Boolean) 列表： 当IsOn的值改变的时候， 执行列表内所有的方法 {
+        1. 拖拽形式， 方法必须是公共的， 可以有参可以无参， 注意： 有bool型参数的时候注意可变参数和固定参数。
+        2. 代码注册事件的形式： 注意只能把无返回值、 有bool型参数的方法注册进去。
+    }
+
+    Toogle Group: 实现一组toggle的单选效果， 只有一个Group内的Toggle才是一个组的。
+}
+
+Toogle Group 单选框组 组件 {
+    Allow Switch Off: 不勾上 表示必须有一个单选框是选中状态， 勾上表示允许全部单选框都不选
+}
+
+Slider (Script) 滑动器 组件 {
+
+}
+
+ScrollBar (Script) 滚动栏组件 {
+
+}

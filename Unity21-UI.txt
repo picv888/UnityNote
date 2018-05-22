@@ -197,7 +197,7 @@ UGUI {
             无过渡
 
             Color Tint 颜色过渡 {
-                Target Graphic： 之地当过渡的图像
+                Target Graphic： 指定过渡的图像
                 Normal Color： 正常情况下的颜色
                 Highlighted Color: 进入按钮或者选中按钮时的颜色
                 Pressed Color： 按下时的颜色
