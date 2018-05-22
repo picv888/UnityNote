@@ -213,18 +213,20 @@ UGUI {
 
             Animation 动画过渡 {
                 依赖于动画状态机
-                Normal Trigger、 Highlighted Trigger、 Pressed Trigger、 Disabled Trigger对应了动画状态机里的Trigger
-                每个状态播放不同的动画
+                
+                Normal Trigger、 Highlighted Trigger、 Pressed Trigger、 Disabled Trigger右边的文本对应了动画状态机里的Trigger变量名
+
+                点击Auto Generate Animation自动创建动画
             }
 
             OnClick 点击按钮回调方法组 {
                 拖拽添加回调方法 {
-                    添加脚本， 脚本里添加public的方法， 方法可以有一个参数
+                    把物体的脚本组件拖进去，脚本里添加public的方法，方法可以有一个参数
                     点击OnClick面板的＋
-                    选择脚本， 选择添加的public的方法
+                    选择框里选择方法
                 }
                 
-                代码控制按钮{
+                代码管理按钮的回调{
                     //添加回调
                     //action是无参无返回的委托
                     button.onClick.AddListener(UnityAction action);
