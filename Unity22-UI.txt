@@ -80,6 +80,7 @@ Canvas 画布组件 {
 
 Canvas Scaler（ Script） 组件 {
     UI Scale Mode 缩放模式 {
+
         Contant pixel Size {
             不常用， 画布尺寸会随着屏幕的像素变化， 不便于适配
         }
@@ -124,9 +125,16 @@ Toogle Group 单选框组 组件 {
 }
 
 Slider (Script) 滑动器 组件 {
-
+    Fill Rect: 填充的区域（ 已经滑过的区域）， 进度的图片
+    Handle Rect: 把手的图片
+    Direction: 方向
+    Min / Max Value: 最大值， 最小值
+    Whole Numbers: 是否整数变化
+    Value: 值， 进度值
 }
 
 ScrollBar (Script) 滚动栏组件 {
-
+    Value : 0~1
+    Size: 把手大小百分比
+    Number of Steps： 0~11 滚动步数， 当值为0~1 时步数没有限制
 }

@@ -74,7 +74,7 @@ UGUI {
             Sprite sprite = Resources.Load<Sprite> ("Texture/img");
 
             //这样加载不到图片
-            Sprite sprite2 = Resources.Load ("Texture/img") as Sprite;
+            //Sprite sprite2 = Resources.Load ("Texture/img") as Sprite;
 
             //获取图集Texture/img中的全部图片
             Sprite[] spArr = Resources.LoadAll<Sprite> ("Texture/img");
@@ -104,7 +104,7 @@ UGUI {
             W、 H： 图片在显示框内的显示百分比， W为0 .5 时只能显示图片横向的一半
         }
 
-        游戏背景滚动： 把图片的WarpMode 设置成Repeat或者Mirror (镜像), 然后定时修改UV Rect控制偏移
+        游戏背景滚动： 把图片Texture的WarpMode 设置成Repeat或者Mirror (镜像), 然后定时修改UV Rect控制偏移
 
         拼图游戏：
     }
