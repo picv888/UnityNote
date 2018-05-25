@@ -1,0 +1,98 @@
+Canvas Group 组件 控制自己和所有子物体的某些属性 {
+    Alpha： 透明度0不显示 1 显示
+    Interactable： 是否可交互
+    Blocks Raycasts: 是否接受射线检测
+    ignore Parent Group: 是否忽略父级物体的Canvas Group的影响
+}
+
+Scroll Rect 组件 {
+    Content 可拖动的物体
+    Horizontal 是否可以水平拖动
+    Vertical 是否可以垂直拖动
+    Movement Type 移动类型 {
+        Elastic 弹性， 会自动回到对齐的位置 {
+            Elasticity: 弹性系数， 值越大回弹越慢
+        }
+        Unrestricted: 无限制的， 拖到哪就在哪
+        Clamped: 有限制的， 拖动物体的拖动框最多能对齐
+    }
+    Inertia: 惯性
+    Deceleration Rate: 减速度
+    Scroll Sensitivity: 滚动系数， 跟鼠标的滚轮相关
+    Viewport: 视窗
+    Horizontal scrollbar: 水平滚动条
+    Visibility: 滚动条显示方式 {
+        Permanent： 永久显示
+        Auto Hide: 自动隐藏
+        Auto Hide And Expand Viewport: 自动隐藏并且隐藏视窗
+    }
+}
+
+Mask 遮罩组件 {
+    方形显示、 圆形显示、 各种形状显示
+
+    Mask组件必须与一个Image组件在一个物体， Image用于确定遮罩的形状， 使子物体只显示自己的Image的不透明的部分
+
+    Show Mask Graphic： 是否显示用于制作遮罩的图片
+}
+
+Horizontal Layout Group 水平自动布局组件， 对自己的子物体 {
+    Padding: 子物体距离4个变量的距离
+    Spacing： 各个元素直接的间隔
+    Child Alignment： 子物体的对齐方式
+    Child Controls Size {
+        Width： 是否强行扩大子物体的宽度来填补额外可用的空间
+        Height: 是否强行扩大子物体的高度来填补课外可用的空间
+    }
+    Child Force Expand {
+        Width： 是否强行扩大子物体的横向间隔来填补额外可用的空间
+        Height: 是否强行扩大子物体的纵向间隔来填补课外可用的空间
+    }
+}
+
+Content Size Fitter 容量大小自适应组件 {
+    根据子物体自动适应大小
+    使用方法1: 和Horizontal Layout Group配合使用
+    使用方法2： 和Text组件配合使用， 自动扩大文本框宽高
+
+    Horizontal Fit 水平扩容 {
+        UNconstrained: 不需要自动扩容
+        Min Size: 最小值
+        Preferred Size: 最合适的值
+    }
+
+    Vertical Fit： 垂直扩容 { 同上 }
+}
+
+UGUI事件接口{
+    using UnityEngine.EventSystems;
+    继承了UGUI事件接口的类，挂在物体上，只要子物体或自己本身能接收射线检测，这些接口就是可以执行的
+    interface IPointerClickhandler
+    {
+        当鼠标指针点击了执行接口里的方法（点击时和抬起时鼠标指针都要在物体内）
+    }
+
+    interface IpointerDownHandler{
+        当鼠标指针按下时执行接口里的方法
+    }
+
+    interface IPointerUpHandler{
+        当鼠标指针抬起时执行接口里的方法
+    }
+
+    interface IPointerEnterHandler{
+        当鼠标进入物体时执行接口里的方法
+    }
+
+    interface IPointerExitHandler{
+        当鼠标离开物体时执行接口里的方法
+    }
+}
+
+EventSystems 组件{
+
+}
+
+转换坐标API{
+     public static bool RectTransformUtility.ScreenPointToLocalPointInRectangle(RectTransform rect, Vector2 screenPoint, Camera cam, out Vector2 localPoint);
+}

@@ -46,7 +46,8 @@ RectTransform 组件 {
 }
 
 代码控制RectTransform {
-
+    pivot ： 轴心点，相对物体自身的坐标位置，百分比,(0,0)为物体的左下角，(1,1)为物体的右上角，(0.5,0.5)为物体的中心
+    localPosition  ：物体的轴心点相对父物体轴心点的坐标位置
 }
 
 Canvas 画布组件 {

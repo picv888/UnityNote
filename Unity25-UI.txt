@@ -1,0 +1,38 @@
+事件接口
+IDraphandler 按下并拖动鼠标时执行接口里的方法， 只要鼠标在拖动就一直执行
+
+IDropHandler 拖动结束时， 如果鼠标在物体的范围内， 执行一次， 依赖于IDragHandler， 和IPointerClickHandler不能同时使用， 优先执行IPointerClickHandler的方法
+
+IBeginDragHandler 开始拖动时执行一次
+
+IEndDragHandler 拖动结束时执行一次， 对鼠标是否在物体内没有要求
+
+IScrollHandler 监听鼠标滚轮
+
+PointerEventData 类 {
+    position：鼠标当前的屏幕位置
+    button: 鼠标按下时判断左右键
+    clickCount: 点击次数， 两次点击之间的时间如果超过一定长度， 重新统计点击次数
+    delta: 拖动鼠标时的偏移量（ 一般用在拖动事件接口中）
+    dragging: 是否处于拖动状态
+    enterEventCamera: 鼠标进入时的事件相机
+    pressEventCamera: 鼠标按下时的事件相机
+    pointerDrag: 拖动的物体
+    pinterEnter: 进入的物体
+    pointerPress: 按下的物体
+    pointerCurrentRaycast： 鼠标当前的射线结果
+    pointerPressRaycast: 鼠标按下时的射线检测结果
+    scrollDelta：鼠标中键（滚轮）滑动的距离
+}
+
+Grid Layout Group（网格自动布局）
+Padding : 距离边界的距离
+Cell Size： 子物体的大小
+Spacing： 元素间的间隔
+Start Corner:第一个元素的位置，起点位置
+Start Axis: 排列的轴向
+Child Alignment:对齐方式
+Constraint 约束{
+    Fixed Row Count 约束行数
+    Fixed Colunm Count  约束列数
+}
