@@ -35,5 +35,9 @@ Try Catch：
 先依次执行Try语句块的代码，一但发现有错误，不会继续执行Try里的代码，直接跳到Catch块里依次执行Catch块里的代码，Catch块里的代码执行完继续向下执行。如果Try里的代码没有错误，不会执行Catch里的代码，直接执行Catch块后的代码
 
 
+//关闭文件国际惯例
+fs.Flush();//冲刷内存
+fs.Dispose();
+fs.Close();
 
 
