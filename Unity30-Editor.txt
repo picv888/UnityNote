@@ -1,0 +1,62 @@
+Editor:
+对编辑器进行一些拓展开发
+
+Editor文件夹：引用了UnityEditor命名空间或使用UnityEditor下的方法，这个类如果没放在Editor文件夹下，打包的时候会报错。Editor文件夹下的所有文件脚本都不会打进发布的包，并且该脚本一般都是在编辑时使用的。只要使用了UnityEditor命名空间，那么这个脚本一定要放在Editor文件夹下。
+
+关于继承Mono类的拓展开发
+
+特性：
+[特性]：声明性的标签（类， 方法， 结构体， 变量等等）
+
+修饰变量：
+[Tooltip("玩家名字")]：在Inspector面板鼠标悬停在修饰的变量上时，显示一个提示性的信息
+[Range(1,50)]：修饰整型和浮点类型的变量，生成一个滑动条， 范围是最小值和最大值之间
+第一个参数：最小值
+第二个参数：最大值
+[Header("玩家的信息")]：显示一个标题，只修饰字段
+[Space(10)]：可以与上面形成一个空白区域
+[Multiline(5)]：修饰string类型的变量， 可以让string类型的变量在Inspector面板显示多行
+		参数就是显示几行
+[TextArea()]0：修饰string类型的变量，在Inspector面板显示带滚动的文本区域。
+[TextArea(2,5)]：同上，最少显示2行，最多显示5行，文本内容超过5行出现滚动条
+
+[HideInInspector]：把公共的变量在Inspector面板隐藏，但是还是可序列化的。
+[SerializeField]：可以让私有变量可以被序列化， 在Inspector面板上显示。
+[System.NonSerialized]：让公有的变量不可序列化。
+[ContextMenuItem("funciton", "Test")]：是修饰的字段当右键点击时，出现一个自定义的方法的菜单，选中这个方法菜单时，执行这个方法
+		第一个参数：显示的名字
+		第二个参数：方法名， 这个方法必须是非静态的方法
+  [Delayed]：修饰的变量，只有当按下回车键或鼠标失焦时才会把新输入的值赋值给变量。
+
+修饰方法:
+[ContextMenu("重置位置")]：可以让组件在面板的该组件的齿轮设置菜单里多出一个选项，如果选中了该选项，执行该特性修饰的方法，参数显示在面板的名字，修饰的方法是非静态的方法。
+[UnityEditor.MenuItem("Menu/Open")]：添加菜单项，在编辑器的上方跟File，Edit等同级的菜单项， 修饰的必须是静态的方法。
+
+修饰类：
+[System.Serializable]：让该类的对象是可序列化的
+[AddComponentMenu("Lesson/MonoEditor")]：修饰继承了mono的类，在Add Component按钮添加选项，当选中该选项是，就把该特性修饰的脚本添加到了该物体上。支持层级化的结构
+[ExecuteInEditMode]：可以在编辑模式下执行该脚本，与运行时执行不一样，运行时Update一直每帧执行一次，只有场景中的某个物体发生改变时，才执行一次Update
+[RequireComponent(typeof(Rigidbody))]：失脚本依赖于一个组件，当把脚本添加到一个物体上时，该脚本先判断该物体上是否有依赖的组件，如果没有，添加上依赖的组件，如果有，不会多次添加组件
+
+
+
+关于Inspector界面的编辑器开发
+1．	引入命名空间UnityEditor
+2．	继承Editor类
+3．	关联该类扩展开发的脚本[CustomEditor(typeof(类名))]
+4．	利用OnEnable和OnDisable做一些初始化和清理的工作  OnEnable选择挂着关联脚本的物体时执行一次，OnDisable当取消选择挂着关联脚本的物体时执行一次
+5．	利用target获取选中物体身上的关联的脚本的对象。
+6．	重写OnInspectorGUI方法，对关联脚本的Inpector界面进行重新绘制
+
+
+关于Window界面的编辑器开发
+1．	创建一个处理窗口的类
+2．	该类需要引用命名空间UntiyEditor
+3．	该类需要继承EditorWindow
+4．	利用EditorWindow.GetWindow<当前处理窗口类的名字>();创建一个窗口（使用这种方式[MenuItem("MyMenu/创建窗口")]）
+5．	利用OnEnable和OnDisable去初始化工作和清理工作
+6．	利用OnGUI方法，对窗口显示自定义的绘制
+
+
+
+

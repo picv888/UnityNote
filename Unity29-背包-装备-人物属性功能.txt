@@ -1,4 +1,4 @@
-需求:
+基本功能：
 1.背包格子的装备是可以拖动的
 2.装备栏的装备也是可以拖动的
 3.当背包格子的装备拖动到装备栏时，如果是装备类型和装备栏类型是一致的，能装上
@@ -10,8 +10,22 @@
 9.背包是通过负重要限制装备的多少的
 10.背包的装备拖动到非背包的区域，可以销毁
 11.鼠标悬停装备上时显示装备的属性信息
-12.一键整理，把相同类型的装备放在一起（考虑权重）
-13.一键出售
+12.一键整理，把相同类型的装备放在一起
+
+
+增加的功能：
+13.不使用课堂素材
+14.窗口可以拖动，点击或者拖动窗口时，窗口会显示到最前面
+15.当拖动背包的装备时，对应能装备该物品的装备栏的边框高亮提示
+16.拖动到商店可以卖出装备，在卖出装备的时候，添加确认卖出的提示框，显示能卖多少钱。如果在点确定之前把装备穿到身上了或者扔了，点击确定后显示提示框“卖出失败，物品不存在”
+17.商店功能，添加确认购买的提示按钮，负重满了则不能买入，没钱了不能买入，并且有提示框
+18.鼠标停在商店的装备上，显示装备的属性
+19.装备属性图片里显示买入、卖出价格
+20.拖动到空白地方，可以丢弃物品，添加确认丢弃的提示按钮
+21.一键出售，添加确认卖出的提示按钮
+22.套装效果，角色面板显示套装属性（有两种套装）
+23.人物根据装备的不同，模型身上的模型装备也不同的，素材需要配套
+24.角色窗口里的人物可以拖动旋转
 
 
 分析：
@@ -30,3 +44,20 @@ Controller
 需要一个控制层来做数据的交换、删除等等。
 
 
+
+单手剑 模型名字Weapon开头
+    Charactor-Female Black Elf 02/RigPelvis/RigSpine1/RigSpine2/RigRibcage/RigRArm1/RigRArm2/RigRArmPalm/Dummy Prop Right
+
+衣服 模型名字Jacket开头
+    Charactor-Female Black Elf 02
+
+头饰 用脸部代替，模型Face开头
+    Charactor-Female Black Elf 02/RigPelvis/RigSpine1/RigSpine2/RigRibcage/RigNeck/RigHead/Dummy Prop Head
+
+帽子 模型Hat开头
+    Charactor-Female Black Elf 02/RigPelvis/RigSpine1/RigSpine2/RigRibcage/RigNeck/RigHead/Dummy Prop Head
+
+项链 用翅膀代替 Wings  
+    Charactor-Female Black Elf 02/RigPelvis/RigSpine1/RigSpine2/RigRibcage/Dummy Prop Back
+
+人物模型 名字Charactor-Female Black Elf 02
