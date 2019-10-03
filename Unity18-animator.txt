@@ -37,20 +37,21 @@ Make Transition: 状态过渡 {
     两个状态之间会出现一条带箭头的线.
 
     在Inspector窗口编辑状态过渡 {
-        has exit time: 如果我们勾选了该项， 在动画转换时会等待当前动画播放完毕才会转换到下一个动画， 如果当前动画是循环动画会等待本次播放完毕时转换， 所以对于需要立即转换动画的情况时记得要取消勾选.
+        has exit time: 如果勾选了该项，即使满足了过渡条件，也要当前动画播放到指定时间才开始过渡到下一个动画
 
-        exit time: 打断时间（ 从哪一帧开始逐渐降低当前动画的权重）
+        exit time: 打断时间，从这个时间开始过渡（时间单位是百分比）
 
-        fixed duration: 固定持续时间（ 这其实是一个切换开关， 切换是按照秒显示还是按照百分比显示）
+        fixed duration: 固定持续时间（ 这其实是一个时间单位切换开关，切换的是transtion duration使用的时间单位，勾上表示使用秒，不勾表示使用百分比）
 
-        transition duration: 过度持续时间（ 过度有多长）
+        transition duration: 过度持续时间
 
-        transition offset: 过度抵消（ 从下一个动画的什么位置开始播放）
+        transition offset: 过度偏移（从下一个动画的什么位置开始过渡）
 
         interruption source: 中断来源
 
         Can Transition To Self : 是否能过渡到自己
     }
+    技巧：对于需要立即转换动画的情况，要取消勾选has exit time, 并把transition duration、transition offset设置为0
 }
 
 BlendTree in State: 状态融合树 {
