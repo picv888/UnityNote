@@ -1,4 +1,4 @@
-使 gameObject 朝向指定的位置
+﻿使 gameObject 朝向指定的位置
 gameObject.transform.LookAt(Transform transform);
 gameObject.transform.LookAt(Vector3 vector3);
 
@@ -58,7 +58,7 @@ Scene右上角 - Gizmes - 滑动 3D Icons
 ////Time时间类
 Time.deltaTime: 代表每一帧所消耗的时间,平移的过程中让速度和此量相乘,就从每帧多少米变成了每秒多少米了
 Time.time 代表着从游戏一开始运行到当前时间点所经历的总时长,是从Time.deltaTime累加上来的.
-Time,fixedDeltaTime: 每一物理帧所消耗的时间
+Time.fixedDeltaTime: 每一物理帧所消耗的时间
 Time.timeScale: 时间缩放, 可以影响Time.deltaTime, FixedUpdate(), fixedTime
 
 ////值类型和引用类型的区别, 类和结构体的区别
